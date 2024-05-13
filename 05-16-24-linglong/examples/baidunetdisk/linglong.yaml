@@ -1,0 +1,46 @@
+version: "1"
+
+package:
+  id: com.baidu.baidunetdisk
+  name: com.baidu.baidunetdisk
+  version: 4.17.7.0
+  kind: app
+  description: |
+    convert from 4.17.7    百度网盘
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+command:
+  - /opt/apps/com.baidu.baidunetdisk/files/bin/start.sh
+
+sources:
+  - kind: file
+    url: https://com-store-packages.uniontech.com/appstorev23/pool/appstore/c/com.baidu.baidunetdisk/com.baidu.baidunetdisk_4.17.7_amd64.deb
+    digest: c7bee3954ed81690c89b297ad68e14b95a634dc57ec1a235348efbf63de095b5
+
+build: |
+  #>>> auto generate by ll-pica begin
+  # set the linglong/sources directory
+  SOURCES="linglong/sources"
+  dpkg-deb -x $SOURCES/com.baidu.baidunetdisk_4.17.7_amd64.deb $SOURCES/com.baidu.baidunetdisk
+  # modify desktop, Exec and Icon should not contanin absolut paths
+  sed -i '/Exec*/c\Exec=start.sh --no-sandbox %U' $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/entries/applications/com.baidu.baidunetdisk.desktop
+  sed -i '/Icon*/c\Icon=baidunetdisk' $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/entries/applications/com.baidu.baidunetdisk.desktop
+  # modify desktop, Exec and Icon should not contanin absolut paths
+  sed -i '/Exec*/c\Exec=start.sh --no-sandbox %U' $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/entries/applications/com.baidu.baidunetdisktest.desktop
+  sed -i '/Icon*/c\Icon=baidunetdisk' $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/entries/applications/com.baidu.baidunetdisktest.desktop
+  export PATH=$PATH:/usr/libexec/linglong/builder/helper
+  install_dep $SOURCES $PREFIX
+  # use a script as program
+  echo "#!/usr/bin/env bash" > start.sh
+  echo "export LD_LIBRARY_PATH=/opt/apps/com.baidu.baidunetdisk/files/lib/$TRIPLET:/runtime/lib:/runtime/lib/$TRIPLET:/usr/lib:/usr/lib/$TRIPLET" >> start.sh
+  echo "cd $PREFIX/baidunetdisk && ./baidunetdisk \$@" >> start.sh
+  install -d $PREFIX/share
+  install -d $PREFIX/bin
+  install -d $PREFIX/lib
+  install -m 0755 start.sh $PREFIX/bin
+  # move files
+  cp -r $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/entries/* $PREFIX/share
+  cp -r $SOURCES/com.baidu.baidunetdisk/opt/apps/com.baidu.baidunetdisk/files/* $PREFIX
+  #>>> auto generate by ll-pica end

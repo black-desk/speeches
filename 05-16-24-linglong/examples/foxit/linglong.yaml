@@ -1,0 +1,43 @@
+version: "1"
+
+package:
+  id: com.foxit.foxitpdfeditor
+  name: com.foxit.foxitpdfeditor
+  version: 12.2.2.0408
+  kind: app
+  description: |
+    convert from 12.2.2.0408    福昕高级PDF编辑器，提供PDF阅读、创建、编辑、保护和PDF页面管理等功能，帮助用户高效处理PDF文档和表单。
+
+base: org.deepin.foundation/20.0.0
+runtime: org.deepin.Runtime/20.0.0
+
+command:
+  - /opt/apps/com.foxit.foxitpdfeditor/files/bin/start.sh
+
+sources:
+  - kind: file
+    url: https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.foxit.foxitpdfeditor/com.foxit.foxitpdfeditor_12.2.2.0408_amd64.deb
+    digest: a1c7abc8c8447a66b382e66af16c2122890314efcb028d6288abe1edf5ceba11
+
+build: |
+  #>>> auto generate by ll-pica begin
+  # set the linglong/sources directory
+  SOURCES="linglong/sources"
+  dpkg-deb -x $SOURCES/com.foxit.foxitpdfeditor_12.2.2.0408_amd64.deb $SOURCES/com.foxit.foxitpdfeditor
+  # modify desktop, Exec and Icon should not contanin absolut paths
+  sed -i '/Exec*/c\Exec=start.sh %F' $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/entries/applications/com.foxit.foxitpdfeditor.desktop
+  sed -i '/Icon*/c\Icon=phantom' $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/entries/applications/com.foxit.foxitpdfeditor.desktop
+  export PATH=$PATH:/usr/libexec/linglong/builder/helper
+  install_dep $SOURCES $PREFIX
+  # use a script as program
+  echo "#!/usr/bin/env bash" > start.sh
+  echo "export LD_LIBRARY_PATH=/opt/apps/com.foxit.foxitpdfeditor/files/lib/$TRIPLET:/runtime/lib:/runtime/lib/$TRIPLET:/usr/lib:/usr/lib/$TRIPLET" >> start.sh
+  echo "cd $PREFIX/ && ./FoxitPDFEditor.sh \$@" >> start.sh
+  install -d $PREFIX/share
+  install -d $PREFIX/bin
+  install -d $PREFIX/lib
+  install -m 0755 start.sh $PREFIX/bin
+  # move files
+  cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/entries/* $PREFIX/share
+  cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/files/* $PREFIX
+  #>>> auto generate by ll-pica end
