@@ -3,7 +3,7 @@ version: "1"
 package:
   id: com.foxit.foxitpdfeditor
   name: com.foxit.foxitpdfeditor
-  version: 12.2.2.0408
+  version: 12.2.2.408
   kind: app
   description: |
     convert from 12.2.2.0408    福昕高级PDF编辑器，提供PDF阅读、创建、编辑、保护和PDF页面管理等功能，帮助用户高效处理PDF文档和表单。
@@ -18,6 +18,48 @@ sources:
   - kind: file
     url: https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.foxit.foxitpdfeditor/com.foxit.foxitpdfeditor_12.2.2.0408_amd64.deb
     digest: a1c7abc8c8447a66b382e66af16c2122890314efcb028d6288abe1edf5ceba11
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/libe/libevent/libevent-2.1-6_2.1.8-stable-4+sign_amd64.deb
+    digest: d06b0719199558165fc2e6b33abe74b45d3cf5b8082c6cf7b365b8352afb4546
+  - kind: file
+    url: 'http://pools.uniontech.com/desktop-professional/pool/main/libw/libwebp/libwebpmux3_0.6.1.5-deepin1_amd64.deb'
+    digest: 1dc691249143b0d3a2637419406277ba1553fe2ac4b71226c521bb4a6b01ce18
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/g/gstreamer1.0/libgstreamer1.0-0_1.14.4.2-1+dde+sign_amd64.deb
+    digest: 7b61f4e3abcc96caadb67f1cb5f9d1334e0153094ea2612f3fac5bf26a07f803
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/g/gst-plugins-base1.0/libgstreamer-plugins-base1.0-0_1.14.4.1-2+deb10u1+sign_amd64.deb
+    digest: e13f8567c4fb02ed8e888a17daf50ef8338f675415028cded4f521f050564743
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/l/lucene++/liblucene++-contrib0v5_3.0.7-10+d1_amd64.deb
+    digest: adad297de34970a20dbdf4987e01ff36c878b2a521c7628c32295c9dd2b0addb
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/l/lucene++/liblucene++0v5_3.0.7-10+d1_amd64.deb
+    digest: b5f0984dbf234da074c4cb524d1738e6c4afb8ad96844d482af85c9d7fe3ef78
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/m/minizip/libminizip1_1.1.1.1-deepin1_amd64.deb
+    digest: eed02aea72ac1f90c89368533ed5c5ec2cef87f9876a9763ce5bddd3aeb0a25a
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/libm/libmng/libmng1_1.0.10.1-1+rebuild1_amd64.deb
+    digest: ad13433fac4489dd0a1aa2921dec56146b2455037ddc06079fc2c6af392592c5
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/o/opus/libopus0_1.3.1-1+dde+sign_amd64.deb
+    digest: 4e8c8c3617c787446f12be88ba5723270ea94fec89b7d0cc3a99c8dd02a55811
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/p/pciutils/libpci3_3.5.2.19-deepin1_amd64.deb
+    digest: 83267e6acc732b2be4f73cce6d5bfb7a73dd1af00c9c1902a1d095fa91ed5e87
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/r/re2/libre2-5_20190101+dfsg.2-1+dde+sign_amd64.deb
+    digest: 3c6d4cad62480eb73262fe77757fbd68aa6a7fbb183e142e4d0bacf5f6400219
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/s/snappy/libsnappy1v5_1.1.7-1+sign_amd64.deb
+    digest: bd13857bf36a411175f02b5b4be85586f5fd529c66d08b7dd639dc1353353e4f
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/libx/libxslt/libxslt1.1_1.1.32.5-deepin1+sign_amd64.deb
+    digest: 046d8ba5fcb43c139383c37cde48bac5d9f55fbfb7f63c58a19e3326d040c277
+  - kind: file
+    url: http://pools.uniontech.com/desktop-professional/pool/main/libw/libwebp/libwebpdemux2_0.6.1.5-deepin1_amd64.deb
+    digest: a29f80aba761c1fe698d658feba4df3b435965eb13277261ea6337254df6f030
 
 build: |
   #>>> auto generate by ll-pica begin
@@ -31,7 +73,6 @@ build: |
   install_dep $SOURCES $PREFIX
   # use a script as program
   echo "#!/usr/bin/env bash" > start.sh
-  echo "export LD_LIBRARY_PATH=/opt/apps/com.foxit.foxitpdfeditor/files/lib/$TRIPLET:/runtime/lib:/runtime/lib/$TRIPLET:/usr/lib:/usr/lib/$TRIPLET" >> start.sh
   echo "cd $PREFIX/ && ./FoxitPDFEditor.sh \$@" >> start.sh
   install -d $PREFIX/share
   install -d $PREFIX/bin
@@ -41,3 +82,6 @@ build: |
   cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/entries/* $PREFIX/share
   cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/files/* $PREFIX
   #>>> auto generate by ll-pica end
+  echo "#!/usr/bin/env bash" > $PREFIX/bin/start.sh
+  echo 'export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/lib:/runtime/lib/x86_64-linux-gnu:/runtime/lib:/opt/apps/com.foxit.foxitpdfeditor/lib"' >> $PREFIX/bin/start.sh
+  echo "cd $PREFIX/ && ./FoxitPDFEditor.sh \$@" >> $PREFIX/bin/start.sh
