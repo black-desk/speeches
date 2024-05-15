@@ -82,6 +82,7 @@ build: |
   cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/entries/* $PREFIX/share
   cp -r $SOURCES/com.foxit.foxitpdfeditor/opt/apps/com.foxit.foxitpdfeditor/files/* $PREFIX
   #>>> auto generate by ll-pica end
+  
   echo "#!/usr/bin/env bash" > $PREFIX/bin/start.sh
   echo 'export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/usr/lib:/runtime/lib/x86_64-linux-gnu:/runtime/lib:/opt/apps/com.foxit.foxitpdfeditor/lib"' >> $PREFIX/bin/start.sh
   echo "cd $PREFIX/ && ./FoxitPDFEditor.sh \$@" >> $PREFIX/bin/start.sh
