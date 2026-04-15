@@ -14,7 +14,7 @@
   font: "Noto Serif CJK SC",
 )
 
-= LLM backporot 实践分享
+= LLM backporot skill 实践分享
 
 == 怎么用
 
@@ -107,7 +107,7 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
 == 背景
 
-=== backport
+=== 什么时候需要backport
 
 - 跨版本移植特性
 
@@ -122,6 +122,8 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 - 识别代码变动的意图，重写
 
 - 可能需要回迁依赖
+
+  #pause
 
   - 依赖可能还有依赖
 
@@ -143,20 +145,28 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
 - 依赖排序
 
-== 怎么让LLM处理：分析阶段
+== 怎么让LLM处理
 
 - 看 diff、源码、commit
   信息来变更的语义，提取里面用到了哪些符号（函数/宏）；
 
+#pause
+
 - 找出在目标分支不存在、不一致的符号；
+
+#pause
 
 - 去参考分支`git log -S`找符号的变动记录；
 
+#pause
+
 - 逐个分析上述过程获得的commit进行backport的必要性；
+
+#pause
 
 - 把需要backport的所有commit排序；
 
-== 怎么让LLM处理：执行阶段
+---
 
 - 逐个 `cherry-pick`
 
@@ -182,52 +192,31 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
   - symbol-origin-finder 分析符号变动记录
 
-  - backport-executor 逐个提交解决冲突。
+  - backport-executor 逐个提交解决冲突
 
 == 问题
 
-+ 为什么用agent
+- 为什么不简单地用多个skill组织任务？
 
-  - 长上下文降智明显
+  - 长上下文时，模型降智明显，而agent有独立的上下文；
 
-+ 为什么不用多级agent
+  - 任务拆太碎效果也未必好，需要尝试；
+  
+- 为什么不用多级agent
 
-  - claude code中为了防止agent调用递归，限制了agent不能调用agent
+  - claude code为了防止agent调用递归，限制了agent不能调用agent
+
 
 == 改进空间
 
-- 目前没有合适的方法和subagent交互、观察subagent正在做什么。
+- 目前没有找到合适的方法和subagent交互、观察subagent正在做什么
 
-- 这两个目录需要是同一个git仓库的两个worktree
+- API限流、网络问题
 
-- 复杂任务的token消耗量大 
+== 提示词怎么写？
 
----
+- 给出示例输出、大致流程、目的；
 
-- API中断的时候需要手动重试
+- 不需要写每一步具体怎么做；
 
-```
-...
-
-● backport-executor(Backport #21: a90558b36cc)
-  ⎿  Done (29 tool uses · 23.8k tokens · 5m 18s)
-  (ctrl+o to expand)
-  ⎿  API Error: 400 {"type":"error","error":{"message":"网络错误，错误id：202604
-     14114854b9b2b65032674a5a，请联系客服。","code":"1234"},"request_id":"202604
-     14114854b9b2b65032674a5a"}
-
-✻ Worked for 2h 40m 26s
-
-❯ 网络出错了 你清理一下 然后用agent 重做第20、21个提交的backport            
-
-...
-
-● 已 drop #20 和 #21。用 agent 重做 #20（带适配）。
-
-...
-
-● #20 重做完成，编译通过。继续重做 #21。
-
-● 21/36 完成，编译通过。继续执行。
-
-```
+- 参考资料不要嵌入提示词里。
