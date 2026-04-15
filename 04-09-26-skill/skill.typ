@@ -156,6 +156,10 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
 #pause
 
+- 重读需要backport的commit，分析上述符号对特性是否有影响；
+
+#pause
+
 - 去参考分支`git log -S`找符号的变动记录；
 
 #pause
@@ -164,7 +168,7 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
 #pause
 
-- 把需要backport的所有commit排序；
+- 对需要backport的所有commit做拓扑排序；
 
 ---
 
@@ -174,7 +178,7 @@ claude --plugin-dir "/path/to/standard-skills/kbackport" \
 
   - 验证编译
 
-  - 缺少依赖、无法合理处理冲突时。打回到分析阶段。
+  - 发现缺少依赖、无法合理处理冲突时。打回到分析阶段。
 
 == 插件结构
 
