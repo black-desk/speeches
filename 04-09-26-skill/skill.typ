@@ -14,7 +14,7 @@
   font: "Noto Serif CJK SC",
 )
 
-= LLM backporot skill 实践分享
+= LLM backport skill 实践分享
 
 == 怎么用
 
