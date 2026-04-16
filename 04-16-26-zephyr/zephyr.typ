@@ -90,7 +90,7 @@
 
 - 裁剪预估：
   
-  - qemu编译运行samples/posix/env
+  - x86编译qemu运行samples/posix/env
 
     实际上编译了的c源码+头文件约为（剔除空格和注释后）5万行左右。
 
