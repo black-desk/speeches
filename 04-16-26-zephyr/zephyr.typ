@@ -108,10 +108,12 @@
   openAMP项目里有基于zephyr的例子：
 
   https://openamp.readthedocs.io/en/v2024.05.0/openamp-system-reference/examples/zephyr/README.html#rpmsg_multi_services/README.md
+  
+  有一个混合部署相关的演讲：
 
   https://events19.linuxfoundation.org/wp-content/uploads/2017/12/Linux-and-Zephyr-%E2%80%9CTalking%E2%80%9D-to-Each-Other-in-the-Same-SoC-Diego-Sueiro-Sepura-Embarcados.pdf
 
-- 有同SoC，Zephyr和Linux混合部署的案例：
+- 有产品级的同SoC，Zephyr和Linux混合部署案例：
 
   https://www.nxp.com/docs/en/user-guide/UG10199.pdf
 
